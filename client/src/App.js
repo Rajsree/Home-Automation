@@ -11,13 +11,31 @@ import './App.css';
 
 class App extends Component {
   state = {
-    todos : []
+    todos : [],
+    data : null
   }
+
 
   componentDidMount() {
     axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
     .then(res => this.setState({todos: res.data}))
+
+        // Call our fetch function below once the component mounts
+    this.callBackendAPI()
+      .then(res => this.setState({ data: res.express }))
+      .catch(err => console.log(err));
   }
+
+  // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
+  callBackendAPI = async () => {
+    const response = await fetch('/express_backend');
+    const body = await response.json();
+  
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    return body;
+  };
 
   //Toggle Complete
   markComplete = (id) => {
@@ -57,6 +75,7 @@ class App extends Component {
           <React.Fragment>
             <AddTodo addTodo={this.addTodo}/>
             <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo}/>
+            <p className="App-intro">{this.state.data}</p>
           </React.Fragment>
         )} />
         <Route path="/about" component={About} />

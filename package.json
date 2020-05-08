@@ -1,0 +1,25 @@
+{
+  "name": "home-automation",
+  "version": "1.0.0",
+  "description": "HomeAutomation App to fetch device details from MySQL server to React web console using Node Server with Restful APIs",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rajsree/Home-Automation.git"
+  },
+  "keywords": [
+    "Homeautomation"
+  ],
+  "author": "Raj Sree",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rajsree/Home-Automation/issues"
+  },
+  "homepage": "https://github.com/Rajsree/Home-Automation#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
