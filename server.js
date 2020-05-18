@@ -16,7 +16,7 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err
-  console.log('You are now connected with mysql database...');
+  console.log('We are now connected with mysql database...');
   connection.query("SELECT * FROM Devices", function (err, result, fields) {
     if (err) throw err;
     console.log(result);
@@ -32,3 +32,11 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.get('/express_backend', (req, res) => {
   res.send({ express: 'OUR EXPRESS BACKEND IS CONNECTED TO REACT' });
 });
+
+app.get('/devices', (req,res) => {
+  connection.query("SELECT * FROM Devices", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    res.send(result)
+  });
+})

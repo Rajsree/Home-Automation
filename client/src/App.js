@@ -24,7 +24,22 @@ class App extends Component {
     this.callBackendAPI()
       .then(res => this.setState({ data: res.express }))
       .catch(err => console.log(err));
-  }
+
+    this.getDevices()
+      .then(res => this.setState({ devices: res.devices}))
+      .catch(err => console.log(err));
+    }
+
+  // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
+  getDevices = async () => {
+    const response = await fetch('/devices');
+    const body = await response.json();  
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    console.log(body);
+    return body;
+  };
 
   // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
@@ -76,6 +91,7 @@ class App extends Component {
             <AddTodo addTodo={this.addTodo}/>
             <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo}/>
             <p className="App-intro">{this.state.data}</p>
+        
           </React.Fragment>
         )} />
         <Route path="/about" component={About} />
