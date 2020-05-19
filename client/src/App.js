@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Header from './components/layout/Header';
-import Todos from './components/Todos';
-import AddTodo from './components/AddTodo';
+import Devices from './components/Devices';
+import AddDevice from './components/AddDevice';
 import About from './components/pages/About';
 //import {v4 as uuid} from "uuid";
 import axios from 'axios';
@@ -12,7 +12,8 @@ import './App.css';
 class App extends Component {
   state = {
     todos : [],
-    data : null
+    data : null,
+    devices : []
   }
 
 
@@ -26,9 +27,10 @@ class App extends Component {
       .catch(err => console.log(err));
 
     this.getDevices()
-      .then(res => this.setState({ devices: res.devices}))
+      .then(res => this.setState({ devices: res}))
       .catch(err => console.log(err));
-    }
+
+  }
 
   // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   getDevices = async () => {
@@ -37,7 +39,6 @@ class App extends Component {
     if (response.status !== 200) {
       throw Error(body.message) 
     }
-    console.log(body);
     return body;
   };
 
@@ -63,15 +64,15 @@ class App extends Component {
     })})
   }
 
-  // Delete Todo
-  delTodo = (id) => {
+  // Delete Device
+  delDevice = (id) => {
     axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
       .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id!== id)]
       }));
   }
 
-  // Add Todo
-  addTodo = (title) => {
+  // Add Device
+  addDevice = (title) => {
     axios.post('https://jsonplaceholder.typicode.com/todos', {
       title,
       completed : false
@@ -88,8 +89,8 @@ class App extends Component {
         <Header/>
         <Route exact path="/" render={props => (
           <React.Fragment>
-            <AddTodo addTodo={this.addTodo}/>
-            <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo}/>
+            <AddDevice addDevice={this.addDevice}/>
+            <Devices devices={this.state.devices} markComplete={this.markComplete} delDevice={this.delDevice}/>
             <p className="App-intro">{this.state.data}</p>
         
           </React.Fragment>

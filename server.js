@@ -37,6 +37,6 @@ app.get('/devices', (req,res) => {
   connection.query("SELECT * FROM Devices", function (err, result, fields) {
     if (err) throw err;
     console.log(result);
-    res.send(result)
+    res.send({devices : result});
   });
 })
