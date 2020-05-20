@@ -11,23 +11,13 @@ import './App.css';
 
 class App extends Component {
   state = {
-    todos : [],
-    data : null,
     devices : []
   }
 
 
   componentDidMount() {
-    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
-    .then(res => this.setState({todos: res.data}))
-
-        // Call our fetch function below once the component mounts
-    this.callBackendAPI()
-      .then(res => this.setState({ data: res.express }))
-      .catch(err => console.log(err));
-
     this.getDevices()
-      .then(res => this.setState({ devices: res}))
+      .then(res => this.setState({ devices: res.devices}))
       .catch(err => console.log(err));
 
   }
@@ -42,44 +32,37 @@ class App extends Component {
     return body;
   };
 
-  // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
-  callBackendAPI = async () => {
-    const response = await fetch('/express_backend');
-    const body = await response.json();
-  
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body;
-  };
-
   //Toggle Complete
   markComplete = (id) => {
-    console.log('From APP.js',id)
-    this.setState( {todos: this.state.todos.map(todo => {
-      if(todo.id === id) {
-        todo.completed = !todo.completed
+    this.setState( {devices: this.state.devices.map(device => {
+      if(device.id === id) {        
+        device.STATUS = !device.STATUS
+        axios.put(`/device/${id}/${device.STATUS}`)
+        .then(res => this.setState({ devices: res.data.devices}))
       }
-      return todo;
-    })})
+      return device;
+    })
+  }) 
   }
 
   // Delete Device
   delDevice = (id) => {
-    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
-      .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id!== id)]
-      }));
+      axios.delete(`/device/${id}`)
+     // .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id!== id)]      
+     .then(res =>  this.setState({ devices: res.data.devices})
+    );
   }
 
   // Add Device
   addDevice = (title) => {
-    axios.post('https://jsonplaceholder.typicode.com/todos', {
-      title,
-      completed : false
+    axios.post('/device', {
+      title
     })
-    .then(res => this.setState({todos: [...this.state.todos, res.data]})
+    // .then(res => this.setState({devices: [...this.state.devices, res.data]})
+    .then(res =>  this.setState({ devices: res.data.devices})
     );
   }
+  
 
   render() {
   return (
@@ -90,6 +73,11 @@ class App extends Component {
         <Route exact path="/" render={props => (
           <React.Fragment>
             <AddDevice addDevice={this.addDevice}/>
+            <div id="TitleBar" style={{display:'flex', padding:'10px'}}>
+              <h3 style={{flex:'5', padding:'5px'}}> Device Name </h3> 
+              <h3 style={{flex:'2', padding:'5px'}}>Status</h3> 
+            </div>
+            
             <Devices devices={this.state.devices} markComplete={this.markComplete} delDevice={this.delDevice}/>
             <p className="App-intro">{this.state.data}</p>
         

@@ -21,7 +21,7 @@ export class AddDevice extends Component {
                 name="title"
                 style={{flex:'10', padding: '5px'}}
                 placeholder="Add a smart device ..."
-                value={this.state.tile}
+                value={this.state.title}
                 onChange={this.onChange}
               /> 
               <input 
