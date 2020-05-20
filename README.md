@@ -25,8 +25,8 @@ Npm Version Supported : >=5.6.0
   database : 'signzyhomeautomation'
 
   ### `SQL FILE`
-Please dump the attached sql file 'BackupDb.sql' using the following command.
-mysqldump -u `DatabaseUser' -p `DatabaseName - signzyhomeautomation` > BackupDb.sql
+Please dump the attached sql file 'BackupDb.sql' using the following command.<br/>
+mysqldump -u `DatabaseUser` -p `DatabaseName - signzyhomeautomation` > BackupDb.sql
 
 
 ## Available Scripts
