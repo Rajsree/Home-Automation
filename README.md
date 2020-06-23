@@ -19,7 +19,7 @@ Node Version Supported : >=8.10.0 <br/>
 Npm Version Supported : >=5.6.0
 
 ## <a name="mysqlCongfig"></a>`MySQL Configuration`
-  host     : 'localhost',<br/>
+l  host     : 'localhost',<br/>
   user     : 'root',<br/>
   password : 'root',<br/>
   database : 'signzyhomeautomation'

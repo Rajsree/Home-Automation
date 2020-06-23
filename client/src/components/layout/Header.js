@@ -6,7 +6,7 @@ function Header() {
     return (
         <header style={headerStyle}>
             <h1>
-            Home Automation - Signzy Technologies (RajSree)
+            Home Automation - MERN Demo by RajSree
             </h1>
             <Link style={linkStyle} to="/" >Home</Link> |  <Link style={linkStyle} to="/about" >About</Link> 
         </header>
