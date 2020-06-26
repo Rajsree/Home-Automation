@@ -22,7 +22,7 @@ Npm Version Supported : >=5.6.0
 l  host     : 'localhost',<br/>
   user     : 'root',<br/>
   password : 'root',<br/>
-  database : 'signzyhomeautomation'
+  database : 'homeautomation'
 
   ### `SQL FILE`
 Please dump the attached sql file 'BackupDb.sql' using the following command.<br/>
