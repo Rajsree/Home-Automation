@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Rajsree/Home-Automation#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "mysql": "^2.18.1"
   }
 }
